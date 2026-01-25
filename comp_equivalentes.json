@@ -34,7 +34,7 @@
       "1.1/2": {"Joelho 90°": 1.7, "Joelho 45°": 0.7, "Curva 90°": 1.0, "Curva 45°": 0.5,
                   "Tê (Lado)": 2.7, "Tê (Direto)": 0.8, "Registro Gaveta": 0.3, "Registro Globo": 13.4},
       "2": {"Joelho 90°": 2.2, "Joelho 45°": 0.9, "Curva 90°": 1.3, "Curva 45°": 0.6,
-            "Tê (Lado)": 3.5, "Tê (Direto)": 1.0, "Registro Gaveta": 0.4, "Registro Globo": 17.4},
+            "Tê (Lado)": 3.5, "Tê (Direto)": 1.0, "Registro Gaveta": 0.4, "Registro Globo": 17.4}
    },
 
 "cobre" : {
@@ -49,6 +49,6 @@
       "42 mm": {"Joelho 90°": 1.2, "Joelho 45°": 0.6, "Curva 90°": 0.9, "Curva 45°": 0.4,
                "Tê (Lado)": 2.1, "Tê (Direto)": 0.7, "Registro Gaveta": 0.3, "Registro Globo": 11.0},
       "54 mm": {"Joelho 90°": 1.5, "Joelho 45°": 0.8, "Curva 90°": 1.2, "Curva 45°": 0.5,
-               "Tê (Lado)": 2.8, "Tê (Direto)": 0.9, "Registro Gaveta": 0.4, "Registro Globo": 14.5},
+               "Tê (Lado)": 2.8, "Tê (Direto)": 0.9, "Registro Gaveta": 0.4, "Registro Globo": 14.5}
    }
 }
