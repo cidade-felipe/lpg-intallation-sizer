@@ -38,10 +38,10 @@ def criar_tabelas(conn_info, caminho_sql):
 
 if __name__ == "__main__":
    import re
-   from conectar import connect_to_db
+   from conectar import conectar_db
 
    file = r"sql\tabelas.sql"
-   conexao = connect_to_db()
+   conexao = conectar_db()
    criar_tabelas = criar_tabelas(conexao[0], file)
    for tabela in criar_tabelas:
       print(f'Criando a tabela: {tabela}')

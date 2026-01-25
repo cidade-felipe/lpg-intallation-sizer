@@ -1,54 +1,528 @@
 {
-"pex" : {
-      "16 mm": {
-         "Joelho 90°": 0.5, "Joelho 45°": 0.2, "Curva Tubo": 0.0,
-         "Tê (Lado)": 0.9, "Tê (Direto)": 0.2, "Registro Esfera": 0.2,
-         "Regulador Pressão": 5.0, "Válvula Retenção": 1.1
-      },
-      "20 mm": {
-         "Joelho 90°": 0.7, "Joelho 45°": 0.3, "Curva Tubo": 0.0,
-         "Tê (Lado)": 1.2, "Tê (Direto)": 0.3, "Registro Esfera": 0.3,
-         "Regulador Pressão": 7.0, "Válvula Retenção": 1.5
-      },
-      "25 mm": {
-         "Joelho 90°": 1.0, "Joelho 45°": 0.4, "Curva Tubo": 0.0,
-         "Tê (Lado)": 1.7, "Tê (Direto)": 0.5, "Registro Esfera": 0.4,
-         "Regulador Pressão": 8.5, "Válvula Retenção": 2.0
-      },
-      "32 mm": {
-         "Joelho 90°": 1.3, "Joelho 45°": 0.5, "Curva Tubo": 0.0,
-         "Tê (Lado)": 2.1, "Tê (Direto)": 0.6, "Registro Esfera": 0.5,
-         "Regulador Pressão": 11.0, "Válvula Retenção": 2.7
-      }
+"Aço Galvanizado": {
+   "1/4": {
+   "Cotovelo 90°": 0.23,
+   "Cotovelo 90° (Redução)": 0.22,
+   "Curva Macho-Fêmea": 0.16,
+   "Curva 45° (M/F)": 0.1,
+   "Tê (Passagem Direta)": 0.04,
+   "Tê (Saída Lateral)": 0.34,
+   "Tê (Saída Bilateral)": 0.42,
+   "Cruzeta (Tipo 1)": 0.05,
+   "Cruzeta (Tipo 2)": 0.34,
+   "Luva": 0.01,
+   "União": 0.01
    },
-
-"aco" : {
-      "1/2": {"Joelho 90°": 0.7, "Joelho 45°": 0.3, "Curva 90°": 0.4, "Curva 45°": 0.2,
-               "Tê (Lado)": 1.1, "Tê (Direto)": 0.3, "Registro Gaveta": 0.1, "Registro Globo": 4.9},
-      "3/4": {"Joelho 90°": 0.9, "Joelho 45°": 0.4, "Curva 90°": 0.5, "Curva 45°": 0.2,
-               "Tê (Lado)": 1.4, "Tê (Direto)": 0.4, "Registro Gaveta": 0.1, "Registro Globo": 6.7},
-      "1": {"Joelho 90°": 1.1, "Joelho 45°": 0.5, "Curva 90°": 0.6, "Curva 45°": 0.3,
-            "Tê (Lado)": 1.7, "Tê (Direto)": 0.5, "Registro Gaveta": 0.2, "Registro Globo": 8.2},
-      "1.1/4": {"Joelho 90°": 1.4, "Joelho 45°": 0.6, "Curva 90°": 0.8, "Curva 45°": 0.4,
-                  "Tê (Lado)": 2.3, "Tê (Direto)": 0.7, "Registro Gaveta": 0.2, "Registro Globo": 11.3},
-      "1.1/2": {"Joelho 90°": 1.7, "Joelho 45°": 0.7, "Curva 90°": 1.0, "Curva 45°": 0.5,
-                  "Tê (Lado)": 2.7, "Tê (Direto)": 0.8, "Registro Gaveta": 0.3, "Registro Globo": 13.4},
-      "2": {"Joelho 90°": 2.2, "Joelho 45°": 0.9, "Curva 90°": 1.3, "Curva 45°": 0.6,
-            "Tê (Lado)": 3.5, "Tê (Direto)": 1.0, "Registro Gaveta": 0.4, "Registro Globo": 17.4}
+   "3/8": {
+   "Cotovelo 90°": 0.35,
+   "Cotovelo 90° (Redução)": 0.33,
+   "Cotovelo 45°": 0.16,
+   "Cotovelo 90° (Saída Lateral)": 0.61,
+   "Curva Macho-Fêmea": 0.24,
+   "Curva Macho": 0.25,
+   "Curva 45° (M/F)": 0.15,
+   "Tê (Passagem Direta)": 0.06,
+   "Tê (Saída Lateral)": 0.51,
+   "Tê (Saída Bilateral)": 0.62,
+   "Cruzeta (Tipo 1)": 0.08,
+   "Cruzeta (Tipo 2)": 0.5,
+   "Luva": 0.01,
+   "União": 0.01
    },
+   "1/2": {
+   "Cotovelo 90°": 0.47,
+   "Cotovelo 90° (Redução)": 0.44,
+   "Cotovelo 45°": 0.22,
+   "Cotovelo 90° (Saída Lateral)": 0.81,
+   "Curva Fêmea-Fêmea": 0.27,
+   "Curva Macho-Fêmea": 0.32,
+   "Curva Macho": 0.34,
+   "Curva 45° (M/F)": 0.2,
+   "Curva Retorno": 0.43,
+   "Curva Transposição": 0.87,
+   "Tê (Passagem Direta)": 0.08,
+   "Tê (Saída Lateral)": 0.69,
+   "Tê (Saída Bilateral)": 0.83,
+   "Tê 45° (Tipo 1)": 0.09,
+   "Tê 45° (Tipo 2)": 0.44,
+   "Cruzeta (Tipo 1)": 0.1,
+   "Cruzeta (Tipo 2)": 0.67,
+   "Tê de Curva Dupla (Tipo 1)": 0.28,
+   "Tê de Curva Dupla (Tipo 2)": 0.3,
+   "Luva": 0.01,
+   "União": 0.01
+   },
+   "3/4": {
+   "Cotovelo 90°": 0.7,
+   "Cotovelo 90° (Redução)": 0.67,
+   "Cotovelo 45°": 0.32,
+   "Cotovelo 90° (Saída Lateral)": 1.22,
+   "Curva Fêmea-Fêmea": 0.41,
+   "Curva Macho-Fêmea": 0.48,
+   "Curva Macho": 0.5,
+   "Curva 45° (M/F)": 0.3,
+   "Curva Retorno": 0.65,
+   "Tê (Passagem Direta)": 0.12,
+   "Tê (Saída Lateral)": 1.03,
+   "Tê (Saída Bilateral)": 1.25,
+   "Tê 45° (Tipo 1)": 0.13,
+   "Tê 45° (Tipo 2)": 0.66,
+   "Cruzeta (Tipo 1)": 0.15,
+   "Cruzeta (Tipo 2)": 1.01,
+   "Luva": 0.01,
+   "União": 0.01,
+   "União c/ Flanges (Ovais)": 0.01
+   },
+   "1": {
+   "Cotovelo 90°": 0.94,
+   "Cotovelo 90° (Redução)": 0.89,
+   "Cotovelo 45°": 0.43,
+   "Cotovelo 90° (Saída Lateral)": 1.63,
+   "Curva Fêmea-Fêmea": 0.55,
+   "Curva Macho-Fêmea": 0.64,
+   "Curva Macho": 0.67,
+   "Curva 45° (M/F)": 0.41,
+   "Curva Retorno": 0.86,
+   "Tê (Passagem Direta)": 0.17,
+   "Tê (Saída Lateral)": 1.37,
+   "Tê (Saída Bilateral)": 1.66,
+   "Tê 45° (Tipo 1)": 0.18,
+   "Tê 45° (Tipo 2)": 0.88,
+   "Cruzeta (Tipo 1)": 0.2,
+   "Cruzeta (Tipo 2)": 1.35,
+   "Luva": 0.01,
+   "União": 0.01
+   },
+   "1 1/4": {
+   "Cotovelo 90°": 1.17,
+   "Cotovelo 90° (Redução)": 1.11,
+   "Cotovelo 45°": 0.54,
+   "Cotovelo 90° (Saída Lateral)": 2.03,
+   "Curva Fêmea-Fêmea": 0.68,
+   "Curva Macho-Fêmea": 0.79,
+   "Curva Macho": 0.84,
+   "Curva 45° (M/F)": 0.51,
+   "Curva Retorno": 1.08,
+   "Tê (Passagem Direta)": 0.21,
+   "Tê (Saída Lateral)": 1.71,
+   "Tê (Saída Bilateral)": 2.08,
+   "Tê 45° (Tipo 1)": 0.22,
+   "Tê 45° (Tipo 2)": 1.1,
+   "Cruzeta (Tipo 1)": 0.25,
+   "Cruzeta (Tipo 2)": 1.68,
+   "Luva": 0.01,
+   "União": 0.01
+   },
+   "1 1/2": {
+   "Cotovelo 90°": 1.41,
+   "Cotovelo 90° (Redução)": 1.33,
+   "Cotovelo 45°": 0.65,
+   "Cotovelo 90° (Saída Lateral)": 2.44,
+   "Curva Fêmea-Fêmea": 0.82,
+   "Curva Macho-Fêmea": 0.95,
+   "Curva Macho": 1.01,
+   "Curva 45° (M/F)": 0.61,
+   "Curva Retorno": 1.3,
+   "Tê (Passagem Direta)": 0.25,
+   "Tê (Saída Lateral)": 2.06,
+   "Tê (Saída Bilateral)": 2.5,
+   "Tê 45° (Tipo 1)": 0.27,
+   "Tê 45° (Tipo 2)": 1.31,
+   "Cruzeta (Tipo 1)": 0.3,
+   "Cruzeta (Tipo 2)": 2.02,
+   "Luva": 0.01,
+   "União": 0.01
+   },
+   "2": {
+   "Cotovelo 90°": 1.88,
+   "Cotovelo 90° (Redução)": 1.78,
+   "Cotovelo 45°": 0.86,
+   "Cotovelo 90° (Saída Lateral)": 3.25,
+   "Curva Fêmea-Fêmea": 1.04,
+   "Curva Macho-Fêmea": 1.27,
+   "Curva Macho": 1.35,
+   "Curva 45° (M/F)": 0.81,
+   "Curva Retorno": 1.73,
+   "Tê (Passagem Direta)": 0.33,
+   "Tê (Saída Lateral)": 2.74,
+   "Tê (Saída Bilateral)": 3.33,
+   "Tê 45° (Tipo 1)": 0.36,
+   "Tê 45° (Tipo 2)": 1.75,
+   "Cruzeta (Tipo 1)": 0.41,
+   "Cruzeta (Tipo 2)": 2.69,
+   "Luva": 0.01,
+   "União": 0.01
+   },
+   "2 1/2": {
+   "Cotovelo 90°": 2.35,
+   "Cotovelo 45°": 1.08,
+   "Curva Fêmea-Fêmea": 1.37,
+   "Curva Macho-Fêmea": 1.59,
+   "Curva Macho": 1.68,
+   "Curva 45° (M/F)": 1.02,
+   "Tê (Passagem Direta)": 0.41,
+   "Tê (Saída Lateral)": 3.43,
+   "Tê (Saída Bilateral)": 4.16,
+   "Tê 45° (Tipo 1)": 0.44,
+   "Tê 45° (Tipo 2)": 2.19,
+   "Luva": 0.01,
+   "União": 0.01
+   },
+   "3": {
+   "Cotovelo 90°": 2.82,
+   "Cotovelo 45°": 1.3,
+   "Curva Fêmea-Fêmea": 1.64,
+   "Curva Macho-Fêmea": 1.91,
+   "Curva Macho": 2.02,
+   "Curva 45° (M/F)": 1.22,
+   "Tê (Passagem Direta)": 0.5,
+   "Tê (Saída Lateral)": 4.11,
+   "Tê (Saída Bilateral)": 4.99,
+   "Luva": 0.01,
+   "União": 0.01
+   },
+   "4": {
+   "Cotovelo 90°": 3.76,
+   "Cotovelo 45°": 1.73,
+   "Curva Fêmea-Fêmea": 2.18,
+   "Curva Macho-Fêmea": 2.54,
+   "Curva Macho": 2.69,
+   "Tê (Passagem Direta)": 0.66,
+   "Tê (Saída Lateral)": 5.49,
+   "Tê (Saída Bilateral)": 6.65,
+   "Luva": 0.02,
+   "União": 0.01
+   },
+   "5": {
+   "Cotovelo 90°": 4.7,
+   "Cotovelo 45°": 2.16,
+   "Tê (Passagem Direta)": 0.83,
+   "Tê (Saída Lateral)": 6.86,
+   "Tê (Saída Bilateral)": 8.32,
+   "Luva": 0.02
+   },
+   "6": {
+   "Cotovelo 90°": 5.64,
+   "Cotovelo 45°": 2.59,
+   "Curva Macho": 4.04,
+   "Tê (Passagem Direta)": 0.99,
+   "Tê (Saída Lateral)": 8.23,
+   "Tê (Saída Bilateral)": 9.98,
+   "Luva": 0.03
+   }
+},
+"Cobre": {
+   "15": {
+   "Conexões": {
+      "Joelho 90°": 1.1,
+      "Joelho 45°": 0.4,
+      "Curva 90°": 0.4,
+      "Curva 45°": 0.2,
+      "Tê 90° (Passagem Direta)": 0.7,
+      "Tê 90° (Saída de Lado)": 2.3,
+      "Tê 90° (Saída Bilateral)": 2.3,
+      "Entrada Normal": 0.3,
+      "Entrada de Borda": 0.9,
+      "Saída de Canalização": 0.8
+   },
+   "Válvulas": {
+      "Válvula de Pé e Crivo": 8.1,
+      "Válvula de Retenção (Tipo Leve)": 2.5,
+      "Válvula de Retenção (Tipo Pesado)": 3.6
+   },
+   "Registros": {
+      "Registro de Globo (Aberto)": 11.1,
+      "Registro de Gaveta (Aberto)": 0.1,
+      "Registro de Ângulo (Aberto)": 5.9
+   }
+   },
+   "20": {
+   "Conexões": {
+      "Joelho 90°": 1.2,
+      "Joelho 45°": 0.5,
+      "Curva 90°": 0.5,
+      "Curva 45°": 0.3,
+      "Tê 90° (Passagem Direta)": 0.8,
+      "Tê 90° (Saída de Lado)": 2.4,
+      "Tê 90° (Saída Bilateral)": 2.4,
+      "Entrada Normal": 0.4,
+      "Entrada de Borda": 1.0,
+      "Saída de Canalização": 0.9
+   },
+   "Válvulas": {
+      "Válvula de Pé e Crivo": 9.5,
+      "Válvula de Retenção (Tipo Leve)": 2.7,
+      "Válvula de Retenção (Tipo Pesado)": 4.1
+   },
+   "Registros": {
+      "Registro de Globo (Aberto)": 11.4,
+      "Registro de Gaveta (Aberto)": 0.2,
+      "Registro de Ângulo (Aberto)": 6.1
+   }
+   },
+   "25": {
+   "Conexões": {
+      "Joelho 90°": 1.5,
+      "Joelho 45°": 0.7,
+      "Curva 90°": 0.6,
+      "Curva 45°": 0.4,
+      "Tê 90° (Passagem Direta)": 0.9,
+      "Tê 90° (Saída de Lado)": 3.1,
+      "Tê 90° (Saída Bilateral)": 3.1,
+      "Entrada Normal": 0.5,
+      "Entrada de Borda": 1.2,
+      "Saída de Canalização": 1.3
+   },
+   "Válvulas": {
+      "Válvula de Pé e Crivo": 13.3,
+      "Válvula de Retenção (Tipo Leve)": 3.8,
+      "Válvula de Retenção (Tipo Pesado)": 5.8
+   },
+   "Registros": {
+      "Registro de Globo (Aberto)": 15.0,
+      "Registro de Gaveta (Aberto)": 0.3,
+      "Registro de Ângulo (Aberto)": 8.4
+   }
+   },
+   "32": {
+   "Conexões": {
+      "Joelho 90°": 2.0,
+      "Joelho 45°": 1.0,
+      "Curva 90°": 0.7,
+      "Curva 45°": 0.5,
+      "Tê 90° (Passagem Direta)": 1.5,
+      "Tê 90° (Saída de Lado)": 4.6,
+      "Tê 90° (Saída Bilateral)": 4.5,
+      "Entrada Normal": 0.6,
+      "Entrada de Borda": 1.8,
+      "Saída de Canalização": 1.4
+   },
+   "Válvulas": {
+      "Válvula de Pé e Crivo": 15.5,
+      "Válvula de Retenção (Tipo Leve)": 4.9,
+      "Válvula de Retenção (Tipo Pesado)": 7.4
+   },
+   "Registros": {
+      "Registro de Globo (Aberto)": 22.0,
+      "Registro de Gaveta (Aberto)": 0.4,
+      "Registro de Ângulo (Aberto)": 10.5
+   }
+   },
+   "40": {
+   "Conexões": {
+      "Joelho 90°": 3.2,
+      "Joelho 45°": 1.3,
+      "Curva 90°": 1.2,
+      "Curva 45°": 0.6,
+      "Tê 90° (Passagem Direta)": 2.2,
+      "Tê 90° (Saída de Lado)": 7.3,
+      "Tê 90° (Saída Bilateral)": 7.3,
+      "Entrada Normal": 1.0,
+      "Entrada de Borda": 2.3,
+      "Saída de Canalização": 3.2
+   },
+   "Válvulas": {
+      "Válvula de Pé e Crivo": 18.3,
+      "Válvula de Retenção (Tipo Leve)": 6.8,
+      "Válvula de Retenção (Tipo Pesado)": 9.1
+   },
+   "Registros": {
+      "Registro de Globo (Aberto)": 35.8,
+      "Registro de Gaveta (Aberto)": 0.7,
+      "Registro de Ângulo (Aberto)": 17.0
+   }
+   },
+   "50": {
+   "Conexões": {
+      "Joelho 90°": 3.4,
+      "Joelho 45°": 1.5,
+      "Curva 90°": 1.3,
+      "Curva 45°": 0.7,
+      "Tê 90° (Passagem Direta)": 2.3,
+      "Tê 90° (Saída de Lado)": 7.6,
+      "Tê 90° (Saída Bilateral)": 7.6,
+      "Entrada Normal": 1.5,
+      "Entrada de Borda": 2.8,
+      "Saída de Canalização": 3.3
+   },
+   "Válvulas": {
+      "Válvula de Pé e Crivo": 23.7,
+      "Válvula de Retenção (Tipo Leve)": 7.1,
+      "Válvula de Retenção (Tipo Pesado)": 10.8
+   },
+   "Registros": {
+      "Registro de Globo (Aberto)": 37.9,
+      "Registro de Gaveta (Aberto)": 0.8,
+      "Registro de Ângulo (Aberto)": 18.5
+   }
+   },
+   "60": {
+   "Conexões": {
+      "Joelho 90°": 3.7,
+      "Joelho 45°": 1.7,
+      "Curva 90°": 1.4,
+      "Curva 45°": 0.8,
+      "Tê 90° (Passagem Direta)": 2.4,
+      "Tê 90° (Saída de Lado)": 7.8,
+      "Tê 90° (Saída Bilateral)": 7.8,
+      "Entrada Normal": 1.6,
+      "Entrada de Borda": 3.3,
+      "Saída de Canalização": 3.5
+   },
+   "Válvulas": {
+      "Válvula de Pé e Crivo": 25.0,
+      "Válvula de Retenção (Tipo Leve)": 8.2,
+      "Válvula de Retenção (Tipo Pesado)": 12.5
+   },
+   "Registros": {
+      "Registro de Globo (Aberto)": 38.0,
+      "Registro de Gaveta (Aberto)": 0.9,
+      "Registro de Ângulo (Aberto)": 19.0
+   }
+   },
+   "75": {
+   "Conexões": {
+      "Joelho 90°": 3.9,
+      "Joelho 45°": 1.8,
+      "Curva 90°": 1.5,
+      "Curva 45°": 0.9,
+      "Tê 90° (Passagem Direta)": 2.5,
+      "Tê 90° (Saída de Lado)": 8.0,
+      "Tê 90° (Saída Bilateral)": 8.0,
+      "Entrada Normal": 2.0,
+      "Entrada de Borda": 3.7,
+      "Saída de Canalização": 3.7
+   },
+   "Válvulas": {
+      "Válvula de Pé e Crivo": 26.8,
+      "Válvula de Retenção (Tipo Leve)": 9.3,
+      "Válvula de Retenção (Tipo Pesado)": 14.2
+   },
+   "Registros": {
+      "Registro de Globo (Aberto)": 40.0,
+      "Registro de Gaveta (Aberto)": 0.9,
+      "Registro de Ângulo (Aberto)": 20.0
+   }
+   },
+   "100": {
+   "Conexões": {
+      "Joelho 90°": 4.3,
+      "Joelho 45°": 1.9,
+      "Curva 90°": 1.6,
+      "Curva 45°": 1.0,
+      "Tê 90° (Passagem Direta)": 2.6,
+      "Tê 90° (Saída de Lado)": 8.3,
+      "Tê 90° (Saída Bilateral)": 8.3,
+      "Entrada Normal": 2.2,
+      "Entrada de Borda": 4.0,
+      "Saída de Canalização": 3.9
+   },
+   "Válvulas": {
+      "Válvula de Pé e Crivo": 28.6,
+      "Válvula de Retenção (Tipo Leve)": 10.4,
+      "Válvula de Retenção (Tipo Pesado)": 16.0
+   },
+   "Registros": {
+      "Registro de Globo (Aberto)": 42.3,
+      "Registro de Gaveta (Aberto)": 1.0,
+      "Registro de Ângulo (Aberto)": 22.1
+   }
+   },
+   "125": {
+   "Conexões": {
+      "Joelho 90°": 4.9,
+      "Joelho 45°": 2.4,
+      "Curva 90°": 1.9,
+      "Curva 45°": 1.1,
+      "Tê 90° (Passagem Direta)": 3.3,
+      "Tê 90° (Saída de Lado)": 10.0,
+      "Tê 90° (Saída Bilateral)": 10.0,
+      "Entrada Normal": 2.5,
+      "Entrada de Borda": 5.0,
+      "Saída de Canalização": 4.9
+   },
+   "Válvulas": {
+      "Válvula de Pé e Crivo": 37.4,
+      "Válvula de Retenção (Tipo Leve)": 12.5,
+      "Válvula de Retenção (Tipo Pesado)": 19.2
+   },
+   "Registros": {
+      "Registro de Globo (Aberto)": 50.9,
+      "Registro de Gaveta (Aberto)": 1.1,
+      "Registro de Ângulo (Aberto)": 26.2
+   }
+   },
+   "150": {
+   "Conexões": {
+      "Joelho 90°": 5.4,
+      "Joelho 45°": 2.6,
+      "Curva 90°": 2.1,
+      "Curva 45°": 1.2,
+      "Tê 90° (Passagem Direta)": 3.8,
+      "Tê 90° (Saída de Lado)": 11.1,
+      "Tê 90° (Saída Bilateral)": 11.1,
+      "Entrada Normal": 2.8,
+      "Entrada de Borda": 5.6,
+      "Saída de Canalização": 5.5
+   },
+   "Válvulas": {
+      "Válvula de Pé e Crivo": 43.4,
+      "Válvula de Retenção (Tipo Leve)": 13.9,
+      "Válvula de Retenção (Tipo Pesado)": 21.4
+   },
+   "Registros": {
+      "Registro de Globo (Aberto)": 56.7,
+      "Registro de Gaveta (Aberto)": 1.2,
+      "Registro de Ângulo (Aberto)": 28.9
+   }
+   }
+},
 
-"cobre" : {
-      "15 mm": {"Joelho 90°": 0.5, "Joelho 45°": 0.2, "Curva 90°": 0.3, "Curva 45°": 0.1,
-               "Tê (Lado)": 0.8, "Tê (Direto)": 0.2, "Registro Gaveta": 0.1, "Registro Globo": 3.5},
-      "22 mm": {"Joelho 90°": 0.6, "Joelho 45°": 0.3, "Curva 90°": 0.4, "Curva 45°": 0.2,
-               "Tê (Lado)": 1.0, "Tê (Direto)": 0.3, "Registro Gaveta": 0.1, "Registro Globo": 4.9},
-      "28 mm": {"Joelho 90°": 0.8, "Joelho 45°": 0.4, "Curva 90°": 0.5, "Curva 45°": 0.2,
-               "Tê (Lado)": 1.3, "Tê (Direto)": 0.4, "Registro Gaveta": 0.2, "Registro Globo": 6.5},
-      "35 mm": {"Joelho 90°": 1.0, "Joelho 45°": 0.5, "Curva 90°": 0.7, "Curva 45°": 0.3,
-               "Tê (Lado)": 1.6, "Tê (Direto)": 0.5, "Registro Gaveta": 0.2, "Registro Globo": 8.5},
-      "42 mm": {"Joelho 90°": 1.2, "Joelho 45°": 0.6, "Curva 90°": 0.9, "Curva 45°": 0.4,
-               "Tê (Lado)": 2.1, "Tê (Direto)": 0.7, "Registro Gaveta": 0.3, "Registro Globo": 11.0},
-      "54 mm": {"Joelho 90°": 1.5, "Joelho 45°": 0.8, "Curva 90°": 1.2, "Curva 45°": 0.5,
-               "Tê (Lado)": 2.8, "Tê (Direto)": 0.9, "Registro Gaveta": 0.4, "Registro Globo": 14.5}
+"PEX": {
+   "16": {
+   "Conexões": {
+      "Cotovelo/Joelho 90°": 0.6,
+      "Tê (Passagem Direta)": 0.3,
+      "Tê (Saída Lateral)": 1.2,
+      "Luva/União": 0.1
+   },
+   "Válvulas": {
+      "Válvula Esfera (Total)": 0.15
+   }
+   },
+   "20": {
+   "Conexões": {
+      "Cotovelo/Joelho 90°": 0.75,
+      "Tê (Passagem Direta)": 0.45,
+      "Tê (Saída Lateral)": 1.5,
+      "Luva/União": 0.15
+   },
+   "Válvulas": {
+      "Válvula Esfera (Total)": 0.2
+   }
+   },
+   "25": {
+   "Conexões": {
+      "Cotovelo/Joelho 90°": 0.9,
+      "Tê (Passagem Direta)": 0.6,
+      "Tê (Saída Lateral)": 1.8,
+      "Luva/União": 0.2
+   },
+   "Válvulas": {
+      "Válvula Esfera (Total)": 0.3
+   }
+   },
+   "32": {
+   "Conexões": {
+      "Cotovelo/Joelho 90°": 1.2,
+      "Tê (Passagem Direta)": 0.9,
+      "Tê (Saída Lateral)": 2.4,
+      "Luva/União": 0.3
+   },
+   "Válvulas": {
+      "Válvula Esfera (Total)": 0.4
+   }
    }
 }
+}
+

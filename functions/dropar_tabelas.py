@@ -13,10 +13,10 @@ def dropar_tabelas(conn_info, tabelas):
    return list(tabelas)
       
 if __name__ == "__main__":
-   from conectar import connect_to_db
+   from conectar import conectar_db
    from criar_tabelas import tabelas_nomes
 
-   conexao = connect_to_db()
+   conexao = conectar_db()
    sql_file = r"sql\tabelas.sql"
    tabelas = tabelas_nomes(sql_file)
    tabelas_dropadas = dropar_tabelas(conexao[0], tabelas)

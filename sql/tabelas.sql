@@ -2,7 +2,8 @@ CREATE TABLE IF NOT EXISTS material(
    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
    nome VARCHAR(100) NOT NULL,
    rugosidade_c INTEGER NOT NULL,
-   descricao TEXT
+   descricao TEXT,
+   UNIQUE(nome)
 );
 
 CREATE TABLE IF NOT EXISTS projeto(
@@ -56,12 +57,13 @@ CREATE TABLE IF NOT EXISTS tubo(
    FOREIGN KEY (material_id) REFERENCES material(id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS conexao(
+CREATE TABLE IF NOT EXISTS peca(
    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
    material_id INTEGER NOT NULL,
    diametro VARCHAR(10) NOT NULL,
    nome VARCHAR(50) NOT NULL,
    comprimento_equivalente REAL NOT NULL,
+   tipo VARCHAR(20) NOT NULL CHECK(tipo in ('Conexões', 'Válvulas', 'Registros')),
    UNIQUE(material_id, diametro, nome),
    FOREIGN KEY (material_id) REFERENCES material(id) ON DELETE CASCADE
 );
@@ -81,11 +83,11 @@ CREATE TABLE IF NOT EXISTS trecho(
    FOREIGN KEY (tubo_id) REFERENCES tubo(id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS trecho_conexao(
+CREATE TABLE IF NOT EXISTS trecho_peca(
    secao_id INTEGER NOT NULL,
-   conexao_id INTEGER NOT NULL,
-   quantidade_conexoes INTEGER NOT NULL,
-   PRIMARY KEY(secao_id, conexao_id),
+   peca_id INTEGER NOT NULL,
+   quantidade_peca INTEGER NOT NULL,
+   PRIMARY KEY(secao_id, peca_id),
    FOREIGN KEY (secao_id) REFERENCES trecho(id) ON DELETE CASCADE,
-   FOREIGN KEY (conexao_id) REFERENCES conexao(id) ON DELETE CASCADE
+   FOREIGN KEY (peca_id) REFERENCES peca(id) ON DELETE CASCADE
 );

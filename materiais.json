@@ -1,0 +1,16 @@
+{
+"aco_galvanizado": 
+   {"nome": "Aço Galvanizado",
+   "c":130,
+   "descricao": "Material com alta resistência mecânica; a galvanização aumenta a resistência à corrosão."},
+"cobre":
+   {"nome": "Cobre",
+   "c":140, 
+   "descricao": "Material tradicional para instalações internas de gás, com alta durabilidade."
+},
+
+"pex" : 
+   {"nome": "PEX",
+   "c":150,
+   "descricao": "Material flexível, fácil de instalar e com baixa perda de carga, quando homologado para gás."}
+}

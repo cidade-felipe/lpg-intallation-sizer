@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 import psycopg as psy
 load_dotenv()
-def connect_to_db():
+def conectar_db():
    DB_NAME = os.getenv('DB_NAME')
    DB_USER = os.getenv('DB_USER')
    DB_PASSWORD = os.getenv('DB_PASSWORD')
@@ -30,6 +30,6 @@ def connection_string():
    return os.getenv('DB_POOL_URL')
 
 if __name__ == "__main__":
-   conexao = connect_to_db()
+   conexao = conectar_db()
    print(f'Você está conectado ao banco de dados na versão {conexao[1]}')
    print(connection_string())
