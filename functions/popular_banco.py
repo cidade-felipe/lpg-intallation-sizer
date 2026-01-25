@@ -2,12 +2,14 @@ import psycopg as psy
 from conectar import conectar_db
 import json
 
-
 with open('comp_equivalentes.json', 'r', encoding='utf-8') as f:
    comp_equivalentes = json.load(f)
 
 with open('materiais.json', 'r', encoding='utf-8') as f:
    materiais = json.load(f)  
+
+with open('tubos.json', 'r', encoding='utf-8') as f:
+   tubos = json.load(f)
 
 def upsert_materiais(conn, nome, c, descricao=''):
    with conn.cursor() as cur:
@@ -19,7 +21,17 @@ def upsert_materiais(conn, nome, c, descricao=''):
             descricao = EXCLUDED.descricao;
       """, (nome, c, descricao))
    conn.commit()
-   
+
+def upsert_tubo(conn, material_id, diametro_nominal, espessura):
+   with conn.cursor() as cur:
+      cur.execute("""
+         INSERT INTO tubo (material_id, diametro_nominal, espessura)
+         VALUES (%s, %s, %s)
+         ON CONFLICT (material_id, diametro_nominal) DO UPDATE SET
+            espessura = EXCLUDED.espessura;
+      """, (material_id, diametro_nominal, espessura))
+   conn.commit()
+
 def upsert_peca(conn, material_id, diametro, nome, comprimento_equivalente, tipo):
    with conn.cursor() as cur:
       cur.execute("""
@@ -37,8 +49,9 @@ def material_key_for_comp_equivalentes(nome_material):
    comp_keys_upper = {k.upper(): k for k in comp_equivalentes}
    return comp_keys_upper.get(nome_material.upper())
 
-def alimentar_comp_equivalentes(conn):
-   for material in materiais.values():  # Itera sobre os valores do dicionário
+def alimentar_tudo(conn):
+   
+   for material in materiais.values():
       upsert_materiais(conn, material['nome'], material['c'], material['descricao'])
    
    with conn.cursor() as cur:
@@ -72,14 +85,17 @@ def alimentar_comp_equivalentes(conn):
                      nome,
                      comprimento_equivalente,
                      "Conexões",
-                  )
-               
+                  ) 
+      materiais_ids = tubos.keys()
+      for material_id in materiais_ids:
+         for diametro, espessura in tubos[material_id].items():
+            upsert_tubo(conn, material_id, diametro, espessura)
 
 def main():
    conn = conectar_db()[0]
    try:
       with psy.connect(conn) as conn:
-         alimentar_comp_equivalentes(conn)
+         alimentar_tudo(conn)
       print("Banco de dados alimentado com sucesso.")
    except Exception as e:
       print(f"Erro ao alimentar o banco de dados: {e}")

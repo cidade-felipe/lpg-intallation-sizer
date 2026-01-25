@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS tubo(
    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
    material_id INTEGER NOT NULL,
    diametro_nominal VARCHAR(10) NOT NULL,
-   diametro_interno REAL NOT NULL,
+   espessura REAL NOT NULL,
    UNIQUE(material_id, diametro_nominal),
    FOREIGN KEY (material_id) REFERENCES material(id) ON DELETE CASCADE
 );
