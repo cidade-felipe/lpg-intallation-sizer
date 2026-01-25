@@ -1,35 +1,6 @@
 {
 "Aço Galvanizado": {
-   "1/4": {
-   "Cotovelo 90°": 0.23,
-   "Cotovelo 90° (Redução)": 0.22,
-   "Curva Macho-Fêmea": 0.16,
-   "Curva 45° (M/F)": 0.1,
-   "Tê (Passagem Direta)": 0.04,
-   "Tê (Saída Lateral)": 0.34,
-   "Tê (Saída Bilateral)": 0.42,
-   "Cruzeta (Tipo 1)": 0.05,
-   "Cruzeta (Tipo 2)": 0.34,
-   "Luva": 0.01,
-   "União": 0.01
-   },
-   "3/8": {
-   "Cotovelo 90°": 0.35,
-   "Cotovelo 90° (Redução)": 0.33,
-   "Cotovelo 45°": 0.16,
-   "Cotovelo 90° (Saída Lateral)": 0.61,
-   "Curva Macho-Fêmea": 0.24,
-   "Curva Macho": 0.25,
-   "Curva 45° (M/F)": 0.15,
-   "Tê (Passagem Direta)": 0.06,
-   "Tê (Saída Lateral)": 0.51,
-   "Tê (Saída Bilateral)": 0.62,
-   "Cruzeta (Tipo 1)": 0.08,
-   "Cruzeta (Tipo 2)": 0.5,
-   "Luva": 0.01,
-   "União": 0.01
-   },
-   "1/2": {
+   "15": {
    "Cotovelo 90°": 0.47,
    "Cotovelo 90° (Redução)": 0.44,
    "Cotovelo 45°": 0.22,
@@ -52,7 +23,7 @@
    "Luva": 0.01,
    "União": 0.01
    },
-   "3/4": {
+   "20": {
    "Cotovelo 90°": 0.7,
    "Cotovelo 90° (Redução)": 0.67,
    "Cotovelo 45°": 0.32,
@@ -73,7 +44,7 @@
    "União": 0.01,
    "União c/ Flanges (Ovais)": 0.01
    },
-   "1": {
+   "25": {
    "Cotovelo 90°": 0.94,
    "Cotovelo 90° (Redução)": 0.89,
    "Cotovelo 45°": 0.43,
@@ -93,7 +64,7 @@
    "Luva": 0.01,
    "União": 0.01
    },
-   "1 1/4": {
+   "32": {
    "Cotovelo 90°": 1.17,
    "Cotovelo 90° (Redução)": 1.11,
    "Cotovelo 45°": 0.54,
@@ -113,7 +84,7 @@
    "Luva": 0.01,
    "União": 0.01
    },
-   "1 1/2": {
+   "40": {
    "Cotovelo 90°": 1.41,
    "Cotovelo 90° (Redução)": 1.33,
    "Cotovelo 45°": 0.65,
@@ -133,7 +104,7 @@
    "Luva": 0.01,
    "União": 0.01
    },
-   "2": {
+   "50": {
    "Cotovelo 90°": 1.88,
    "Cotovelo 90° (Redução)": 1.78,
    "Cotovelo 45°": 0.86,
@@ -153,7 +124,7 @@
    "Luva": 0.01,
    "União": 0.01
    },
-   "2 1/2": {
+   "65": {
    "Cotovelo 90°": 2.35,
    "Cotovelo 45°": 1.08,
    "Curva Fêmea-Fêmea": 1.37,
@@ -168,7 +139,7 @@
    "Luva": 0.01,
    "União": 0.01
    },
-   "3": {
+   "80": {
    "Cotovelo 90°": 2.82,
    "Cotovelo 45°": 1.3,
    "Curva Fêmea-Fêmea": 1.64,
@@ -181,7 +152,7 @@
    "Luva": 0.01,
    "União": 0.01
    },
-   "4": {
+   "100": {
    "Cotovelo 90°": 3.76,
    "Cotovelo 45°": 1.73,
    "Curva Fêmea-Fêmea": 2.18,
@@ -193,7 +164,7 @@
    "Luva": 0.02,
    "União": 0.01
    },
-   "5": {
+   "125": {
    "Cotovelo 90°": 4.7,
    "Cotovelo 45°": 2.16,
    "Tê (Passagem Direta)": 0.83,
@@ -201,7 +172,7 @@
    "Tê (Saída Bilateral)": 8.32,
    "Luva": 0.02
    },
-   "6": {
+   "150": {
    "Cotovelo 90°": 5.64,
    "Cotovelo 45°": 2.59,
    "Curva Macho": 4.04,
