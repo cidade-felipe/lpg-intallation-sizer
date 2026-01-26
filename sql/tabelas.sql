@@ -1,3 +1,4 @@
+-- database: :memory:
 CREATE TABLE IF NOT EXISTS material(
    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
    nome VARCHAR(100) NOT NULL,
@@ -35,7 +36,9 @@ CREATE TABLE IF NOT EXISTS equipamento_projeto(
 
 CREATE TABLE IF NOT EXISTS cilindro(
    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-   tipo TEXT NOT NULL
+   tipo TEXT NOT NULL,
+   taxa_vaporizacao REAL NOT NULL,
+   UNIQUE(tipo)
 );
 
 CREATE TABLE IF NOT EXISTS cilindro_projeto(
@@ -52,42 +55,49 @@ CREATE TABLE IF NOT EXISTS tubo(
    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
    material_id INTEGER NOT NULL,
    diametro_nominal VARCHAR(10) NOT NULL,
-   espessura REAL NOT NULL,
+   diametro_interno REAL NOT NULL,
    UNIQUE(material_id, diametro_nominal),
    FOREIGN KEY (material_id) REFERENCES material(id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS peca(
+CREATE TABLE IF NOT EXISTS conexao(
    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
    material_id INTEGER NOT NULL,
    diametro VARCHAR(10) NOT NULL,
    nome VARCHAR(50) NOT NULL,
-   comprimento_equivalente REAL NOT NULL,
-   tipo VARCHAR(20) NOT NULL CHECK(tipo in ('Conexões', 'Válvulas', 'Registros')),
-   UNIQUE(material_id, diametro, nome),
+   comprimento_equivalente REAL NOT NULL,   
+   UNIQUE(material_id, diametro,nome),
    FOREIGN KEY (material_id) REFERENCES material(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS acessorio(
+   id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+   material VARCHAR(100) NOT NULL CHECK(material IN ('Metal','PEX')),
+   diametro VARCHAR(10) NOT NULL,
+   nome VARCHAR(50) NOT NULL,   
+   comprimento_equivalente REAL NOT NULL,
+   UNIQUE(material, diametro, nome)
 );
 
 CREATE TABLE IF NOT EXISTS trecho(
    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-   projeto_id INTEGER NOT NULL,
-   tubo_id INTEGER NOT NULL,
    rede VARCHAR(10) NOT NULL CHECK(rede IN ('primaria','secundaria')),
    comprimento_real REAL NOT NULL,
    vazao REAL NOT NULL,
    pressao_inicial REAL,
    pressao_final REAL,
    velocidade REAL,
-   perda_carga REAL,
-   FOREIGN KEY (projeto_id) REFERENCES projeto(id) ON DELETE CASCADE,
-   FOREIGN KEY (tubo_id) REFERENCES tubo(id) ON DELETE CASCADE
+   perda_carga REAL
 );
 
-CREATE TABLE IF NOT EXISTS trecho_peca(
-   secao_id INTEGER NOT NULL,
-   peca_id INTEGER NOT NULL,
+CREATE TABLE IF NOT EXISTS trecho_conexao_acessorio(
+   trecho_id INTEGER NOT NULL,
+   conexao_id INTEGER NOT NULL,
+   acessorio_id INTEGER NOT NULL,
    quantidade_peca INTEGER NOT NULL,
-   PRIMARY KEY(secao_id, peca_id),
-   FOREIGN KEY (secao_id) REFERENCES trecho(id) ON DELETE CASCADE,
-   FOREIGN KEY (peca_id) REFERENCES peca(id) ON DELETE CASCADE
+   quantidade_acessorio INTEGER NOT NULL,
+   PRIMARY KEY(trecho_id, conexao_id, acessorio_id),
+   FOREIGN KEY (trecho_id) REFERENCES trecho(id) ON DELETE CASCADE,
+   FOREIGN KEY (conexao_id) REFERENCES conexao(id) ON DELETE CASCADE,
+   FOREIGN KEY (acessorio_id) REFERENCES acessorio(id) ON DELETE CASCADE
 );

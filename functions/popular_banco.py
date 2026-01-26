@@ -2,14 +2,20 @@ import psycopg as psy
 from conectar import conectar_db
 import json
 
-with open('comp_equivalentes.json', 'r', encoding='utf-8') as f:
-   comp_equivalentes = json.load(f)
+with open('conexoes.json', 'r', encoding='utf-8') as f:
+   conexoes = json.load(f)
+
+with open('acessorios.json', 'r', encoding='utf-8') as f:
+   acessorios = json.load(f)
 
 with open('materiais.json', 'r', encoding='utf-8') as f:
    materiais = json.load(f)  
 
 with open('tubos.json', 'r', encoding='utf-8') as f:
    tubos = json.load(f)
+
+with open('cilindros.json', 'r', encoding='utf-8') as f:
+   cilindros = json.load(f)
 
 def upsert_materiais(conn, nome, c, descricao=''):
    with conn.cursor() as cur:
@@ -21,75 +27,67 @@ def upsert_materiais(conn, nome, c, descricao=''):
             descricao = EXCLUDED.descricao;
       """, (nome, c, descricao))
    conn.commit()
-
-def upsert_tubo(conn, material_id, diametro_nominal, espessura):
+   
+def upsert_cilindros(conn, tipo, taxa_vaporizacao):
    with conn.cursor() as cur:
       cur.execute("""
-         INSERT INTO tubo (material_id, diametro_nominal, espessura)
+         INSERT INTO cilindro (tipo, taxa_vaporizacao)
+         VALUES (%s, %s)
+         ON CONFLICT (tipo) DO UPDATE SET
+            taxa_vaporizacao = EXCLUDED.taxa_vaporizacao;
+      """, (tipo, taxa_vaporizacao))
+   conn.commit()
+   
+def upsert_tubos(conn, material_id, diametro_nominal, diametro_interno):
+   with conn.cursor() as cur:
+      cur.execute("""
+         INSERT INTO tubo (material_id, diametro_nominal, diametro_interno)
          VALUES (%s, %s, %s)
          ON CONFLICT (material_id, diametro_nominal) DO UPDATE SET
-            espessura = EXCLUDED.espessura;
-      """, (material_id, diametro_nominal, espessura))
+            diametro_interno = EXCLUDED.diametro_interno;
+      """, (material_id, diametro_nominal, diametro_interno))
    conn.commit()
 
-def upsert_peca(conn, material_id, diametro, nome, comprimento_equivalente, tipo):
+def upsert_conexoes(conn, material_id, diametro, nome, comprimento_equivalente):
    with conn.cursor() as cur:
       cur.execute("""
-         INSERT INTO peca (material_id, diametro, nome, comprimento_equivalente, tipo)
-         VALUES (%s, %s, %s, %s, %s)
+         INSERT INTO conexao (material_id, diametro, nome, comprimento_equivalente)
+         VALUES (%s, %s, %s, %s)
          ON CONFLICT (material_id, diametro, nome) DO UPDATE SET
-            comprimento_equivalente = EXCLUDED.comprimento_equivalente,
-            tipo = EXCLUDED.tipo;
-      """, (material_id, diametro, nome, comprimento_equivalente, tipo))
+            comprimento_equivalente = EXCLUDED.comprimento_equivalente;
+      """, (material_id, diametro, nome, comprimento_equivalente))
    conn.commit()
 
-def material_key_for_comp_equivalentes(nome_material):
-   if nome_material in comp_equivalentes:
-      return nome_material
-   comp_keys_upper = {k.upper(): k for k in comp_equivalentes}
-   return comp_keys_upper.get(nome_material.upper())
+def upsert_acessorios(conn, material, diametro, nome, comprimento_equivalente):
+   with conn.cursor() as cur:
+      cur.execute("""
+         INSERT INTO acessorio (material, diametro, nome, comprimento_equivalente)
+         VALUES (%s, %s, %s, %s)
+         ON CONFLICT (material, diametro, nome) DO UPDATE SET
+            comprimento_equivalente = EXCLUDED.comprimento_equivalente;
+      """, (material, diametro, nome, comprimento_equivalente))
+   conn.commit()
 
 def alimentar_tudo(conn):
-   
+   for tipo,taxa_vaporizacao in cilindros.items():      
+      upsert_cilindros(conn, tipo, taxa_vaporizacao)
+      
    for material in materiais.values():
       upsert_materiais(conn, material['nome'], material['c'], material['descricao'])
+
+   for material_id in tubos.keys():
+      for diametro_nominal, diametro_interno in tubos[material_id].items():
+         upsert_tubos(conn, material_id, diametro_nominal, diametro_interno)
+
+   for material_id in conexoes.keys():
+      for diametro in conexoes[material_id].keys():
+         for nome, comprimento_equivalente in conexoes[material_id][diametro].items():
+            upsert_conexoes(conn, material_id, diametro, nome, comprimento_equivalente)
    
-   with conn.cursor() as cur:
-      for material in materiais.values():
-         cur.execute("SELECT id FROM material WHERE nome = %s;", (material['nome'],))
-         material_id = cur.fetchone()[0]
-         
-         comp_key = material_key_for_comp_equivalentes(material['nome'])
-         if not comp_key:
-            raise KeyError(
-               f"Material '{material['nome']}' nao encontrado em comp_equivalentes.json"
-            )
-         for diametro_str, grupos in comp_equivalentes[comp_key].items():
-            if any(isinstance(v, dict) for v in grupos.values()):
-               for tipo, pecas in grupos.items():
-                  for nome, comprimento_equivalente in pecas.items():
-                     upsert_peca(
-                        conn,
-                        material_id,
-                        diametro_str,
-                        nome,
-                        comprimento_equivalente,
-                        tipo,
-                     )
-            else:
-               for nome, comprimento_equivalente in grupos.items():
-                  upsert_peca(
-                     conn,
-                     material_id,
-                     diametro_str,
-                     nome,
-                     comprimento_equivalente,
-                     "Conexões",
-                  ) 
-      materiais_ids = tubos.keys()
-      for material_id in materiais_ids:
-         for diametro, espessura in tubos[material_id].items():
-            upsert_tubo(conn, material_id, diametro, espessura)
+   for material in acessorios.keys():
+      for diametro in acessorios[material].keys():
+         for nome, comprimento_equivalente in acessorios[material][diametro].items():
+            upsert_acessorios(conn, material, diametro, nome, comprimento_equivalente)
 
 def main():
    conn = conectar_db()[0]
