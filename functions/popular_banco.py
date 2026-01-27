@@ -2,11 +2,8 @@ import psycopg as psy
 from conectar import conectar_db
 import json
 
-with open('conexoes.json', 'r', encoding='utf-8') as f:
-   conexoes = json.load(f)
-
-with open('acessorios.json', 'r', encoding='utf-8') as f:
-   acessorios = json.load(f)
+with open('pecas.json', 'r', encoding='utf-8') as f:
+   pecas = json.load(f)
 
 with open('materiais.json', 'r', encoding='utf-8') as f:
    materiais = json.load(f)  
@@ -48,24 +45,14 @@ def upsert_tubos(conn, material_id, diametro_nominal, diametro_interno):
       """, (material_id, diametro_nominal, diametro_interno))
    conn.commit()
 
-def upsert_conexoes(conn, material_id, diametro, nome, comprimento_equivalente):
+def upsert_pecas(conn, material_id, categoria, diametro, nome, comprimento_equivalente):
    with conn.cursor() as cur:
       cur.execute("""
-         INSERT INTO conexao (material_id, diametro, nome, comprimento_equivalente)
-         VALUES (%s, %s, %s, %s)
-         ON CONFLICT (material_id, diametro, nome) DO UPDATE SET
+         INSERT INTO peca (material_id, categoria, diametro, nome, comprimento_equivalente)
+         VALUES (%s, %s, %s, %s, %s)
+         ON CONFLICT (material_id, categoria, diametro, nome) DO UPDATE SET
             comprimento_equivalente = EXCLUDED.comprimento_equivalente;
-      """, (material_id, diametro, nome, comprimento_equivalente))
-   conn.commit()
-
-def upsert_acessorios(conn, material, diametro, nome, comprimento_equivalente):
-   with conn.cursor() as cur:
-      cur.execute("""
-         INSERT INTO acessorio (material, diametro, nome, comprimento_equivalente)
-         VALUES (%s, %s, %s, %s)
-         ON CONFLICT (material, diametro, nome) DO UPDATE SET
-            comprimento_equivalente = EXCLUDED.comprimento_equivalente;
-      """, (material, diametro, nome, comprimento_equivalente))
+      """, (material_id, categoria, diametro, nome, comprimento_equivalente))
    conn.commit()
 
 def alimentar_tudo(conn):
@@ -79,21 +66,24 @@ def alimentar_tudo(conn):
       for diametro_nominal, diametro_interno in tubos[material_id].items():
          upsert_tubos(conn, material_id, diametro_nominal, diametro_interno)
 
-   for material_id in conexoes.keys():
-      for diametro in conexoes[material_id].keys():
-         for nome, comprimento_equivalente in conexoes[material_id][diametro].items():
-            upsert_conexoes(conn, material_id, diametro, nome, comprimento_equivalente)
-   
-   for material in acessorios.keys():
-      for diametro in acessorios[material].keys():
-         for nome, comprimento_equivalente in acessorios[material][diametro].items():
-            upsert_acessorios(conn, material, diametro, nome, comprimento_equivalente)
+   for categoria in pecas.keys():
+      for material_id in pecas[categoria].keys():
+         for diametro in pecas[categoria][material_id].keys():
+            for peca, comprimento_equivalente in pecas[categoria][material_id][diametro].items():
+               upsert_pecas(conn, material_id, categoria, diametro, peca, comprimento_equivalente)
+         
 
 def main():
    conn = conectar_db()[0]
    try:
       with psy.connect(conn) as conn:
-         alimentar_tudo(conn)
+         try:
+            conn.autocommit = False
+            alimentar_tudo(conn)
+         except Exception as e:
+            print(f"Erro ao configurar o autocommit: {e}")
+            import traceback
+            traceback.print_exc()         
       print("Banco de dados alimentado com sucesso.")
    except Exception as e:
       print(f"Erro ao alimentar o banco de dados: {e}")
