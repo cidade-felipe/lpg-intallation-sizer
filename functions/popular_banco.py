@@ -1,76 +1,79 @@
 import psycopg as psy
 from conectar import conectar_db
 import json
+import re
 
-with open('pecas.json', 'r', encoding='utf-8') as f:
+with open(r'json\pecas.json', 'r', encoding='utf-8') as f:
    pecas = json.load(f)
 
-with open('materiais.json', 'r', encoding='utf-8') as f:
+with open(r'json\materiais.json', 'r', encoding='utf-8') as f:
    materiais = json.load(f)  
 
-with open('tubos.json', 'r', encoding='utf-8') as f:
+with open(r'json\tubos.json', 'r', encoding='utf-8') as f:
    tubos = json.load(f)
 
-with open('cilindros.json', 'r', encoding='utf-8') as f:
+with open(r'json\cilindros.json', 'r', encoding='utf-8') as f:
    cilindros = json.load(f)
 
-def upsert_materiais(conn, nome, c, descricao=''):
+def upsert_materiais(conn, dados):
    with conn.cursor() as cur:
-      cur.execute("""
+      cur.executemany("""
          INSERT INTO material (nome, rugosidade_c, descricao)
          VALUES (%s, %s, %s)
          ON CONFLICT (nome) DO UPDATE SET
             rugosidade_c = EXCLUDED.rugosidade_c,
             descricao = EXCLUDED.descricao;
-      """, (nome, c, descricao))
-   conn.commit()
+      """, dados)
    
-def upsert_cilindros(conn, tipo, taxa_vaporizacao):
+def upsert_cilindros(conn, dados):
    with conn.cursor() as cur:
-      cur.execute("""
+      cur.executemany("""
          INSERT INTO cilindro (tipo, taxa_vaporizacao)
          VALUES (%s, %s)
          ON CONFLICT (tipo) DO UPDATE SET
             taxa_vaporizacao = EXCLUDED.taxa_vaporizacao;
-      """, (tipo, taxa_vaporizacao))
-   conn.commit()
+      """, dados)
    
-def upsert_tubos(conn, material_id, diametro_nominal, diametro_interno):
+def upsert_tubos(conn, dados):
    with conn.cursor() as cur:
-      cur.execute("""
+      cur.executemany("""
          INSERT INTO tubo (material_id, diametro_nominal, diametro_interno)
          VALUES (%s, %s, %s)
          ON CONFLICT (material_id, diametro_nominal) DO UPDATE SET
             diametro_interno = EXCLUDED.diametro_interno;
-      """, (material_id, diametro_nominal, diametro_interno))
-   conn.commit()
+      """, dados)
 
-def upsert_pecas(conn, material_id, categoria, diametro, nome, comprimento_equivalente):
+def upsert_pecas(conn, dados):
    with conn.cursor() as cur:
-      cur.execute("""
+      cur.executemany("""
          INSERT INTO peca (material_id, categoria, diametro, nome, comprimento_equivalente)
          VALUES (%s, %s, %s, %s, %s)
          ON CONFLICT (material_id, categoria, diametro, nome) DO UPDATE SET
             comprimento_equivalente = EXCLUDED.comprimento_equivalente;
-      """, (material_id, categoria, diametro, nome, comprimento_equivalente))
-   conn.commit()
+      """, dados)
 
 def alimentar_tudo(conn):
-   for tipo,taxa_vaporizacao in cilindros.items():      
-      upsert_cilindros(conn, tipo, taxa_vaporizacao)
-      
-   for material in materiais.values():
-      upsert_materiais(conn, material['nome'], material['c'], material['descricao'])
+   dados_cilindros = [(tipo, taxa) for tipo, taxa in cilindros.items()]
+   upsert_cilindros(conn, dados_cilindros)
 
-   for material_id in tubos.keys():
-      for diametro_nominal, diametro_interno in tubos[material_id].items():
-         upsert_tubos(conn, material_id, diametro_nominal, diametro_interno)
+   dados_materiais = [(m['nome'], m['c'], m.get('descricao', '')) for m in materiais.values()]
+   upsert_materiais(conn, dados_materiais)
 
-   for categoria in pecas.keys():
-      for material_id in pecas[categoria].keys():
-         for diametro in pecas[categoria][material_id].keys():
-            for peca, comprimento_equivalente in pecas[categoria][material_id][diametro].items():
-               upsert_pecas(conn, material_id, categoria, diametro, peca, comprimento_equivalente)
+   dados_tubos = []
+   for material_id, itens in tubos.items():
+      for dn, di in itens.items():
+         dados_tubos.append((material_id, dn, di))
+   upsert_tubos(conn, dados_tubos)
+
+   dados_pecas = []
+   for categoria, mat_dict in pecas.items():
+      for material_id, diam_dict in mat_dict.items():
+         for diametro, pecas_dict in diam_dict.items():
+            for nome, comp in pecas_dict.items():
+               dados_pecas.append((material_id, categoria, diametro, nome, comp))
+   upsert_pecas(conn, dados_pecas)
+   
+   conn.commit()
          
 
 def main():

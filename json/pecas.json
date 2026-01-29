@@ -186,6 +186,7 @@
          },
       "3": {
          "1/2":{
+            "Curva Feita com a Tubulação":0.1,
             "Curva": 0.5,
             "Joelho 90°": 1.2,
             "Joelho 45°": 0.6,
@@ -194,6 +195,7 @@
             "Luva/União": 0.3
          },
          "3/4":{
+            "Curva Feita com a Tubulação":0.1,
             "Curva": 0.7,
             "Joelho 90°": 1.6,
             "Joelho 45°": 0.8,
@@ -202,6 +204,7 @@
             "Luva/União": 0.4
       },
          "1":{
+            "Curva Feita com a Tubulação":0.1,
             "Curva": 0.9,
             "Joelho 90°": 2.0,
             "Joelho 45°": 1.0,
@@ -210,6 +213,7 @@
             "Luva/União": 0.5
       },
          "1 1/4":{
+            "Curva Feita com a Tubulação":0.1,
             "Curva": 1.2,
             "Joelho 90°": 2.5,
             "Joelho 45°": 1.3,
