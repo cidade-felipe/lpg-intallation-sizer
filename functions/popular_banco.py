@@ -16,41 +16,61 @@ with open(r'json\cilindros.json', 'r', encoding='utf-8') as f:
    cilindros = json.load(f)
 
 def upsert_materiais(conn, dados):
-   with conn.cursor() as cur:
-      cur.executemany("""
-         INSERT INTO material (nome, rugosidade_c, descricao)
-         VALUES (%s, %s, %s)
-         ON CONFLICT (nome) DO UPDATE SET
-            rugosidade_c = EXCLUDED.rugosidade_c,
-            descricao = EXCLUDED.descricao;
-      """, dados)
-   
+   try:   
+      with conn.cursor() as cur:
+         cur.executemany("""
+            INSERT INTO material (nome, rugosidade_c, descricao)
+            VALUES (%s, %s, %s)
+            ON CONFLICT (nome) DO UPDATE SET
+               rugosidade_c = EXCLUDED.rugosidade_c,
+               descricao = EXCLUDED.descricao;
+         """, dados)
+   except Exception as e:
+      print(f"Erro ao inserir material: {e}")
+      import traceback
+      traceback.print_exc()
+
 def upsert_cilindros(conn, dados):
-   with conn.cursor() as cur:
-      cur.executemany("""
-         INSERT INTO cilindro (tipo, taxa_vaporizacao)
-         VALUES (%s, %s)
-         ON CONFLICT (tipo) DO UPDATE SET
-            taxa_vaporizacao = EXCLUDED.taxa_vaporizacao;
-      """, dados)
-   
+   try:   
+      with conn.cursor() as cur:
+         cur.executemany("""
+            INSERT INTO cilindro (tipo, taxa_vaporizacao)
+            VALUES (%s, %s)
+            ON CONFLICT (tipo) DO UPDATE SET
+               taxa_vaporizacao = EXCLUDED.taxa_vaporizacao;
+         """, dados)
+   except Exception as e:
+      print(f"Erro ao inserir cilindro: {e}")
+      import traceback
+      traceback.print_exc()
+      
 def upsert_tubos(conn, dados):
-   with conn.cursor() as cur:
-      cur.executemany("""
-         INSERT INTO tubo (material_id, diametro_nominal, diametro_interno)
-         VALUES (%s, %s, %s)
-         ON CONFLICT (material_id, diametro_nominal) DO UPDATE SET
-            diametro_interno = EXCLUDED.diametro_interno;
-      """, dados)
+   try:
+      with conn.cursor() as cur:
+         cur.executemany("""
+            INSERT INTO tubo (material_id, diametro_nominal, diametro_interno)
+            VALUES (%s, %s, %s)
+            ON CONFLICT (material_id, diametro_nominal) DO UPDATE SET
+               diametro_interno = EXCLUDED.diametro_interno;
+         """, dados)
+   except Exception as e:
+      print(f"Erro ao inserir tubo: {e}")
+      import traceback
+      traceback.print_exc()
 
 def upsert_pecas(conn, dados):
-   with conn.cursor() as cur:
-      cur.executemany("""
-         INSERT INTO peca (material_id, categoria, diametro, nome, comprimento_equivalente)
-         VALUES (%s, %s, %s, %s, %s)
-         ON CONFLICT (material_id, categoria, diametro, nome) DO UPDATE SET
-            comprimento_equivalente = EXCLUDED.comprimento_equivalente;
-      """, dados)
+   try:
+      with conn.cursor() as cur:
+         cur.executemany("""
+            INSERT INTO peca (material_id, categoria, diametro, nome, comprimento_equivalente)
+            VALUES (%s, %s, %s, %s, %s)
+            ON CONFLICT (material_id, categoria, diametro, nome) DO UPDATE SET
+               comprimento_equivalente = EXCLUDED.comprimento_equivalente;
+         """, dados)
+   except Exception as e:
+      print(f"Erro ao inserir peca: {e}")
+      import traceback
+      traceback.print_exc()
 
 def alimentar_tudo(conn):
    dados_cilindros = [(tipo, taxa) for tipo, taxa in cilindros.items()]
@@ -83,11 +103,15 @@ def main():
          try:
             conn.autocommit = False
             alimentar_tudo(conn)
+            print("Banco de dados alimentado com sucesso.")
          except Exception as e:
             print(f"Erro ao configurar o autocommit: {e}")
+            conn.rollback()
             import traceback
-            traceback.print_exc()         
-      print("Banco de dados alimentado com sucesso.")
+            traceback.print_exc()
+         else:
+            conn.commit()
+
    except Exception as e:
       print(f"Erro ao alimentar o banco de dados: {e}")
       import traceback
