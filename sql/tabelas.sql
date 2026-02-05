@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS material (
    nome VARCHAR(100) NOT NULL,
    rugosidade_c REAL NOT NULL CHECK (rugosidade_c >= 0),
    descricao TEXT,
-   UNIQUE (nome)
+   CONSTRAINT uq_material_nome UNIQUE (nome)
 );
 
 CREATE TABLE IF NOT EXISTS projeto (
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS equipamento (
    unidade_medida VARCHAR(10)  NOT NULL DEFAULT 'kW', -- kW, BTU/h etc
    potencia REAL NOT NULL CHECK (potencia > 0),
    descricao TEXT,
-   UNIQUE (nome, unidade_medida, potencia)
+   CONSTRAINT uq_equipamento UNIQUE (nome, unidade_medida, potencia)
 );
 
 CREATE TABLE IF NOT EXISTS equipamento_projeto (
@@ -36,14 +36,14 @@ CREATE TABLE IF NOT EXISTS equipamento_projeto (
    CONSTRAINT fk_eqproj_equip
       FOREIGN KEY (equipamento_id) REFERENCES equipamento(id)
       ON DELETE RESTRICT ON UPDATE CASCADE,
-   UNIQUE (projeto_id, equipamento_id)
+   CONSTRAINT uq_eqproj UNIQUE (projeto_id, equipamento_id)
 );
 
 CREATE TABLE IF NOT EXISTS cilindro (
    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
    tipo TEXT NOT NULL,
    taxa_vaporizacao REAL NOT NULL CHECK (taxa_vaporizacao > 0),
-   UNIQUE (tipo)
+   CONSTRAINT uq_cilindro_tipo UNIQUE (tipo)
 );
 
 CREATE TABLE IF NOT EXISTS cilindro_projeto (
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS cilindro_projeto (
    CONSTRAINT fk_cilproj_cilindro
       FOREIGN KEY (cilindro_id) REFERENCES cilindro(id)
       ON DELETE RESTRICT ON UPDATE CASCADE,
-   UNIQUE (projeto_id, cilindro_id)
+   CONSTRAINT uq_cilproj UNIQUE (projeto_id, cilindro_id)
 );
 
 CREATE TABLE IF NOT EXISTS tubo (
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS tubo (
    CONSTRAINT fk_tubo_material
       FOREIGN KEY (material_id) REFERENCES material(id)
       ON DELETE CASCADE ON UPDATE CASCADE,
-   UNIQUE (material_id, diametro_nominal)
+   CONSTRAINT uq_tubo UNIQUE (material_id, diametro_nominal)
 );
 
 CREATE TABLE IF NOT EXISTS peca (
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS peca (
    CONSTRAINT fk_peca_material
       FOREIGN KEY (material_id) REFERENCES material(id)
       ON DELETE CASCADE ON UPDATE CASCADE,
-   UNIQUE (material_id, categoria, diametro, nome)
+   CONSTRAINT uq_peca UNIQUE (material_id, categoria, diametro, nome)
 );
 
 CREATE TABLE IF NOT EXISTS trecho (
