@@ -1,5 +1,5 @@
 {
-   "Conexões":{
+   "conexoes":{
       "1": {
          "1/2": {
             "Curva 90°": 0.3,
@@ -223,7 +223,7 @@
          }
       }
    },
-   "Acessórios":{
+   "acessorios":{
       "1": {
          "1/2": {
             "Registro de Ángulo": 2.7,
