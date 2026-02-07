@@ -73,7 +73,7 @@ def upsert_pecas(conn, dados):
       traceback.print_exc()
 
 def alimentar_tudo(conn):
-   dados_cilindros = [(tipo, taxa) for tipo, taxa in cilindros.items()]
+   dados_cilindros = list(cilindros.items())
    upsert_cilindros(conn, dados_cilindros)
 
    dados_materiais = [(m['nome'], m['c'], m.get('descricao', '')) for m in materiais.values()]
@@ -81,18 +81,17 @@ def alimentar_tudo(conn):
 
    dados_tubos = []
    for material_id, itens in tubos.items():
-      for dn, di in itens.items():
-         dados_tubos.append((material_id, dn, di))
+      dados_tubos.extend((material_id, dn, di) for dn, di in itens.items())
    upsert_tubos(conn, dados_tubos)
 
    dados_pecas = []
    for categoria, mat_dict in pecas.items():
       for material_id, diam_dict in mat_dict.items():
          for diametro, pecas_dict in diam_dict.items():
-            for nome, comp in pecas_dict.items():
-               dados_pecas.append((material_id, categoria, diametro, nome, comp))
+            dados_pecas.extend((material_id, categoria, diametro, nome, comp)
+                               for nome, comp in pecas_dict.items())
    upsert_pecas(conn, dados_pecas)
-   
+
    conn.commit()
          
 

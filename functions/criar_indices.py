@@ -9,8 +9,7 @@ def indices_nomes(file_path):
          re.IGNORECASE
       )
       indices = pattern.findall(sql)
-      indice = [t.replace('"', '') for t in indices]
-      return indice
+      return [t.replace('"', '') for t in indices]
    except Exception as e:
       print(f"Erro ao ler o arquivo SQL: {e}")
       return None
