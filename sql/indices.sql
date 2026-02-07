@@ -46,3 +46,6 @@ ON central_glp (projeto_id);
 
 CREATE INDEX IF NOT EXISTS idx_documento_projeto
 ON documento_projeto (projeto_id);
+
+CREATE INDEX IF NOT EXISTS idx_ponto_projeto
+ON ponto (projeto_id);

@@ -213,3 +213,15 @@ CREATE TABLE IF NOT EXISTS documento_projeto(
       FOREIGN KEY (projeto_id) REFERENCES projeto(id)
       ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS ponto(
+   id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+   projeto_id INTEGER NOT NULL,
+   tipo VARCHAR(50) NOT NULL,
+   identificador VARCHAR(50) NOT NULL,
+   delta_h REAL NOT NULL,
+   CONSTRAINT uq_ponto UNIQUE (projeto_id, tipo, identificador),
+   CONSTRAINT fk_ponto_projeto
+      FOREIGN KEY (projeto_id) REFERENCES projeto(id)
+      ON DELETE CASCADE ON UPDATE CASCADE
+);
