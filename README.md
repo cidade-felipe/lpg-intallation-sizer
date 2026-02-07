@@ -83,6 +83,21 @@ python functions\dropar_tabelas.py
 - `functions\dropar_indices.py` remove índices listados em `sql\indices.sql`.
 - `functions\popular_banco.py` faz upsert dos dados em `json\`.
 
+**Índices**
+O script `sql\indices.sql` cria índices para colunas usadas em junções e filtros frequentes, principalmente FKs:
+- `equipamento_projeto(projeto_id)` e `equipamento_projeto(equipamento_id)`
+- `cilindro_projeto(projeto_id)` e `cilindro_projeto(cilindro_id)`
+- `tubo(material_id)`
+- `peca(material_id)`
+- `trecho(projeto_id)`
+- `trecho_peca(peca_id)`
+- `regulador_projeto(projeto_id)` e `regulador_projeto(regulador_id)`
+- `calculo(projeto_id)`
+- `calculo_trecho(calculo_id)` e `calculo_trecho(trecho_id)`
+- `criterio_projeto(projeto_id)`
+- `central_glp(projeto_id)`
+- `documento_projeto(projeto_id)`
+
 **Modelo De Dados**
 - `material` catálogo de materiais, com rugosidade e descrição.
 - `tubo` diâmetros nominais e internos por material.
@@ -91,6 +106,13 @@ python functions\dropar_tabelas.py
 - `projeto` e `equipamento` cadastro de projetos e equipamentos.
 - `equipamento_projeto` e `cilindro_projeto` relacionamentos com quantidades.
 - `trecho` e `trecho_peca` trechos de rede e suas peças associadas.
+- `regulador` catálogo de reguladores por estágio e modelo.
+- `regulador_projeto` reguladores associados ao projeto com localização e quantidade.
+- `calculo` execuções de cálculo por projeto e tipo, com parâmetros.
+- `calculo_trecho` resultados de cálculo por trecho.
+- `criterio_projeto` critérios operacionais e limites por projeto.
+- `central_glp` dados da central de GLP e verificações.
+- `documento_projeto` controle de documentos e versões do projeto.
 
 **Dados Base**
 - `json/materiais.json` define materiais e rugosidade.
