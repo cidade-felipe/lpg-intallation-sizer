@@ -97,6 +97,7 @@ O script `sql\indices.sql` cria índices para colunas usadas em junções e filt
 - `criterio_projeto(projeto_id)`
 - `central_glp(projeto_id)`
 - `documento_projeto(projeto_id)`
+- `ponto(projeto_id)`
 
 **Modelo De Dados**
 - `material` catálogo de materiais, com rugosidade e descrição.
@@ -113,6 +114,7 @@ O script `sql\indices.sql` cria índices para colunas usadas em junções e filt
 - `criterio_projeto` critérios operacionais e limites por projeto.
 - `central_glp` dados da central de GLP e verificações.
 - `documento_projeto` controle de documentos e versões do projeto.
+- `ponto` ponto da instalação sendo analisado
 
 **Dados Base**
 - `json/materiais.json` define materiais e rugosidade.
