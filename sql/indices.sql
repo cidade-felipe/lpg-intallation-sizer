@@ -22,3 +22,27 @@ ON trecho (projeto_id);
 
 CREATE INDEX IF NOT EXISTS idx_trechopeca_peca
 ON trecho_peca (peca_id);
+
+CREATE INDEX IF NOT EXISTS idx_regproj_projeto
+ON regulador_projeto (projeto_id);
+
+CREATE INDEX IF NOT EXISTS idx_regproj_regulador
+ON regulador_projeto (regulador_id);
+
+CREATE INDEX IF NOT EXISTS idx_calculo_projeto
+ON calculo (projeto_id);
+
+CREATE INDEX IF NOT EXISTS idx_calculo_trecho_calculo
+ON calculo_trecho (calculo_id);
+
+CREATE INDEX IF NOT EXISTS idx_calculo_trecho_trecho
+ON calculo_trecho (trecho_id);
+
+CREATE INDEX IF NOT EXISTS idx_criterio_projeto
+ON criterio_projeto (projeto_id);
+
+CREATE INDEX IF NOT EXISTS idx_central_glp_projeto
+ON central_glp (projeto_id);
+
+CREATE INDEX IF NOT EXISTS idx_documento_projeto
+ON documento_projeto (projeto_id);
