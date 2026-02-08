@@ -70,6 +70,20 @@ python functions\dropar_indices.py
 python functions\dropar_tabelas.py
 ```
 
+**Interface Grafica (PySide6)**
+Instale as dependencias e execute a interface:
+```powershell
+python -m pip install -r requirements.txt
+python gui\app.py
+```
+
+Funcionalidades principais:
+- Cadastro de projetos, equipamentos, cilindros, materiais, tubos e pecas.
+- Associacao de equipamentos e cilindros aos projetos.
+- Cadastro de trechos e pecas por trecho.
+- Calculo de central (fator de simultaneidade, potencia adotada, vazao e cilindros).
+- Calculo de trechos (comprimento equivalente, perda de carga e velocidade) com salvamento no banco.
+
 **Fluxo Sugerido**
 1. Configure o `.env` com as credenciais do banco.
 2. Crie as tabelas com `functions\criar_tabelas.py`.
