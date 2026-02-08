@@ -49,3 +49,15 @@ ON documento_projeto (projeto_id);
 
 CREATE INDEX IF NOT EXISTS idx_ponto_projeto
 ON ponto (projeto_id);
+
+CREATE INDEX IF NOT EXISTS idx_edificacao_projeto
+ON edificacao (projeto_id);
+
+CREATE INDEX IF NOT EXISTS idx_parametros_gerais_projeto
+ON parametros_gerais (projeto_id);
+
+CREATE INDEX IF NOT EXISTS idx_regulador_projeto
+ON regulador_projeto (projeto_id);
+
+CREATE INDEX IF NOT EXISTS idx_trechopeca_trecho
+ON trecho_peca (trecho_id);
