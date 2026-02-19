@@ -98,18 +98,18 @@ CREATE TABLE IF NOT EXISTS trecho(
    projeto_id INTEGER NOT NULL,
    rede VARCHAR(10) NOT NULL CHECK (rede IN ('primaria','secundaria')),
    lreal REAL NOT NULL CHECK (lreal > 0),
+   delta_h REAL NOT NULL DEFAULT 0,
+   CONSTRAINT uq_trecho UNIQUE (projeto_id, rede),
    CONSTRAINT fk_trecho_projeto
       FOREIGN KEY (projeto_id) REFERENCES projeto(id)
-      ON DELETE CASCADE ON UPDATE CASCADE,
-   CONSTRAINT ck_trecho_pressao
-      CHECK (pressao_inicial IS NULL OR pressao_final IS NULL OR pressao_inicial >= pressao_final)
+      ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS trecho_peca(
+   id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
    trecho_id INTEGER NOT NULL,
    peca_id INTEGER NOT NULL,
    qtde_peca INTEGER NOT NULL CHECK (qtde_peca > 0),
-   PRIMARY KEY (trecho_id, peca_id),
    CONSTRAINT fk_trechopeca_trecho
       FOREIGN KEY (trecho_id) REFERENCES trecho(id)
       ON DELETE CASCADE ON UPDATE CASCADE,
@@ -120,32 +120,15 @@ CREATE TABLE IF NOT EXISTS trecho_peca(
 
 CREATE TABLE IF NOT EXISTS calculo(
    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-   projeto_id INTEGER NOT NULL,
-   local VARCHAR(20) NOT NULL CHECK (local IN ('central', 'rede primaria', 'rede secundaria')),
-   data_execucao TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-   CONSTRAINT uq_calculo UNIQUE (projeto_id, local),
-   CONSTRAINT fk_calculo_projeto
-      FOREIGN KEY (projeto_id) REFERENCES projeto(id)
-      ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS calculo_trecho(
-   id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-   calculo_id INTEGER NOT NULL,
    trecho_id INTEGER NOT NULL,
    ltotal REAL NOT NULL CHECK (ltotal >= 0),
    potencia REAL NOT NULL CHECK (potencia >= 0),
-   vazao REAL NOT NULL CHECK (vazao >= 0),
    velocidade REAL NOT NULL CHECK (velocidade >= 0),
    perda_carga REAL NOT NULL CHECK (perda_carga >= 0),
    pressao_inicial REAL NOT NULL,
    pressao_final REAL NOT NULL,
    ok BOOLEAN NOT NULL,
    observacao TEXT,
-   CONSTRAINT uq_calculo_trecho UNIQUE (calculo_id, trecho_id),
-   CONSTRAINT fk_calculo_trecho_calculo
-      FOREIGN KEY (calculo_id) REFERENCES calculo(id)
-      ON DELETE CASCADE ON UPDATE CASCADE,
    CONSTRAINT fk_calculo_trecho_trecho
       FOREIGN KEY (trecho_id) REFERENCES trecho(id)
       ON DELETE CASCADE ON UPDATE CASCADE
@@ -155,10 +138,8 @@ CREATE TABLE IF NOT EXISTS criterio_projeto(
    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
    projeto_id INTEGER NOT NULL,
    pressao_operacao REAL NOT NULL CHECK (pressao_operacao >= 0),
-   vel_maxima REAL NOT NULL CHECK (vel_maxima >= 0),
-   vel_minima REAL NOT NULL CHECK (vel_minima >= 0),
-   vel_max_recomendada REAL NOT NULL CHECK (vel_max_recomendada >= 0),
-   vel_min_recomendada REAL NOT NULL CHECK (vel_min_recomendada >= 0),
+   vel_maxima REAL NOT NULL DEFAULT 20,   
+   vel_recomendada REAL NOT NULL DEFAULT 15,   
    densidade_relativa REAL NOT NULL CHECK (densidade_relativa >= 0),
    temperatura_projeto REAL NOT NULL CHECK (temperatura_projeto >= 0),
    observacao TEXT,
@@ -194,13 +175,6 @@ CREATE TABLE IF NOT EXISTS documento_projeto(
       ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS ponto(
-   id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-   projeto_id INTEGER NOT NULL,
-   tipo VARCHAR(50) NOT NULL,
-   identificador VARCHAR(50) NOT NULL
-);
-
 CREATE TABLE IF NOT EXISTS valores_entrada(
    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
    projeto_id INTEGER NOT NULL,
@@ -221,7 +195,7 @@ CREATE TABLE IF NOT EXISTS regulador(
    modelo VARCHAR(50),
    fabricante VARCHAR(50),
    descricao TEXT,
-   CONSTRAINT uq_regulador UNIQUE (estagio),
+   CONSTRAINT uq_regulador UNIQUE (estagio)
 );
 
 CREATE TABLE IF NOT EXISTS regulador_projeto(
